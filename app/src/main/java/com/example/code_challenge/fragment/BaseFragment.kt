@@ -22,11 +22,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState != null) {
-            state = savedInstanceState.getBundle(FRAGMENT_STATE)
-        } else {
-            state = Bundle()
-        }
+        state = if (savedInstanceState != null) savedInstanceState.getBundle(FRAGMENT_STATE) else Bundle()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

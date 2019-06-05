@@ -8,14 +8,10 @@ import com.example.code_challenge.fragment.ResultFragment
 
 class ViewPagerAdapter(fm: FragmentManager?) : FragmentPagerAdapter(fm) {
 
-    private val childFragments: Array<Fragment>
-
-    init {
-        childFragments = arrayOf(
-            ResultFragment(),
-            QuestionFragment()
-        )
-    }
+    private val childFragments: Array<Fragment> = arrayOf(
+        ResultFragment(),
+        QuestionFragment()
+    )
 
     override fun getItem(p0: Int): Fragment {
         return childFragments[p0]

@@ -10,7 +10,6 @@ import android.widget.TextView
 import com.example.code_challenge.R
 import com.example.code_challenge.model.Question
 import com.example.code_challenge.model.Result
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -43,21 +42,21 @@ class QuestionFragment : BaseFragment() {
 
         val swipeRefreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.swipe_refresh_layout)
 
-        swipeRefreshLayout.setOnRefreshListener({
+        swipeRefreshLayout.setOnRefreshListener {
             abs?.getRepository()?.getQuestions(QUESTION_AMOUNT)
                 ?.subscribeOn(Schedulers.newThread())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({ result ->
-                    swipeRefreshLayout.setRefreshing(false)
-                    state?.putSerializable(BUNDLE_QUESTION, result.get(0))
+                    swipeRefreshLayout.isRefreshing = false
+                    state?.putSerializable(BUNDLE_QUESTION, result[0])
                     if (result != null) {
-                        updateUI(result.get(0))
+                        updateUI(result[0])
                     }
                 },
-                    {error ->
-                        swipeRefreshLayout.setRefreshing(false)
+                    {
+                        swipeRefreshLayout.isRefreshing = false
                     })
-        })
+        }
 
         buttonOne = view.findViewById(R.id.answer_1)
         buttonTwo = view.findViewById(R.id.answer_2)
@@ -111,13 +110,13 @@ class QuestionFragment : BaseFragment() {
         buttonThree.background = buttonThree.context.getDrawable(R.drawable.button_capsule)
         buttonFour.background = buttonFour.context.getDrawable(R.drawable.button_capsule)
 
-        questionText.setText(question.question)
+        questionText.text = question.question
 
-        if (question.incorrectAnsvers.size > 0) {
-            buttonOne.setText(question.correctAnsver)
-            buttonTwo.setText(question.incorrectAnsvers[0])
-            buttonThree.setText(question.incorrectAnsvers[1])
-            buttonFour.setText(question.incorrectAnsvers[2])
+        if (question.incorrectAnsvers.isNotEmpty()) {
+            buttonOne.text = question.correctAnsver
+            buttonTwo.text = question.incorrectAnsvers[0]
+            buttonThree.text = question.incorrectAnsvers[1]
+            buttonFour.text = question.incorrectAnsvers[2]
         }
     }
 

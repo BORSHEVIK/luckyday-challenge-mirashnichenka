@@ -1,17 +1,12 @@
 package com.example.code_challenge
 
 import android.content.Context
-import android.support.v7.widget.AppCompatButton
-import android.support.v7.widget.AppCompatImageView
-import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.code_challenge.model.Result
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
 
 class ResultsAdapter(val context: Context) : RecyclerView.Adapter<ResultsAdapter.ViewHolder>() {
 
@@ -36,7 +31,7 @@ class ResultsAdapter(val context: Context) : RecyclerView.Adapter<ResultsAdapter
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val result = filteredItems.get(position)
+        val result = filteredItems[position]
 
         holder.question.text = result.question
 

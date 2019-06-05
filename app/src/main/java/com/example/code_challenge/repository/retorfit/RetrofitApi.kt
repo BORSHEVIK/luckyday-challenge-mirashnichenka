@@ -4,14 +4,11 @@ import com.example.code_challenge.model.Question
 import com.example.code_challenge.model.Result
 import com.example.code_challenge.repository.Repository
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
-import retrofit2.Retrofit
-import retrofit2.converter.jackson.JacksonConverterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-
+import retrofit2.Retrofit
+import retrofit2.converter.jackson.JacksonConverterFactory
 
 
 class RetrofitApi(): Repository {
@@ -49,7 +46,7 @@ class RetrofitApi(): Repository {
 
     override fun getQuestions(amount: Int): Single<List<Question>> {
         return openTriviaAdapter.getQuestions(amount, "multiple")
-            .flatMap({
+            .flatMap {
                 val questions = mutableListOf<Question>()
                 for (question in it.results) {
                     questions.add(Question(
@@ -60,7 +57,7 @@ class RetrofitApi(): Repository {
                 }
 
                 Single.just(questions)
-            })
+            }
     }
 
 

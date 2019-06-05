@@ -1,5 +1,6 @@
 package com.example.code_challenge.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -43,6 +44,7 @@ class ResultFragment : BaseFragment() {
         update()
     }
 
+    @SuppressLint("CheckResult")
     fun update() {
         abs?.getRepository()?.getResults()
             ?.subscribeOn(Schedulers.newThread())
@@ -51,7 +53,7 @@ class ResultFragment : BaseFragment() {
                 swipeRefreshLayout.setRefreshing(false)
                 resultsAdapter.items = result.toMutableList()
             },
-                {error ->
+                {
                     swipeRefreshLayout.setRefreshing(false)
                 })
     }

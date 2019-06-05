@@ -1,13 +1,12 @@
 package com.example.code_challenge
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import com.example.code_challenge.repository.RepositoryImpl
-import android.support.design.widget.TabLayout
-import android.support.v4.widget.SwipeRefreshLayout
 import com.example.code_challenge.fragment.ResultFragment
 import com.example.code_challenge.repository.Repository
+import com.example.code_challenge.repository.RepositoryImpl
 
 
 class MainActivity : AppCompatActivity(), Abs {
@@ -22,9 +21,9 @@ class MainActivity : AppCompatActivity(), Abs {
 
         repositoryImpl = RepositoryImpl(this)
 
-        viewPager = findViewById<ViewPager>(R.id.view_pager)
-        pagerAdapter = ViewPagerAdapter(getSupportFragmentManager())
-        viewPager.setAdapter(pagerAdapter)
+        viewPager = findViewById(R.id.view_pager)
+        pagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        viewPager.adapter = pagerAdapter
 
         val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
         tabLayout.setupWithViewPager(viewPager)

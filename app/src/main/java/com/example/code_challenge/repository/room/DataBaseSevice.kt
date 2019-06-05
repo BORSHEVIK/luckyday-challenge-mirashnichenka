@@ -1,11 +1,11 @@
 package com.example.code_challenge.repository.room
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.example.code_challenge.model.Question
 import com.example.code_challenge.model.Result
 import com.example.code_challenge.repository.Repository
 import com.example.code_challenge.repository.room.entity.CodeChalangeDatabase
-import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
@@ -18,14 +18,14 @@ class DataBaseSevice(val context: Context) : Repository {
     }
 
     override fun getResults(): Single<List<Result>> {
-        return codeChalangeDatabase.ResultDao().getAll()
-            .flatMap ({
+        return codeChalangeDatabase.resultDao().getAll()
+            .flatMap {
                 val results = mutableListOf<Result>()
                 for (result in it) {
-                results.add(Result(result.question, result.ansver, result.correctAnsver, result.ansverResult))
-            }
+                    results.add(Result(result.question, result.ansver, result.correctAnsver, result.ansverResult))
+                }
                 Single.just(results)
-            })
+            }
     }
 
     override fun getQuestions(amount: Int): Single<List<Question>> {
@@ -33,6 +33,7 @@ class DataBaseSevice(val context: Context) : Repository {
         return Single.just(arrayListOf())
     }
 
+    @SuppressLint("CheckResult")
     override fun addResult(result: Result) {
         val resultDB = com.example.code_challenge.repository.room.entity.Result()
             .apply {
@@ -45,11 +46,11 @@ class DataBaseSevice(val context: Context) : Repository {
         Single.just(resultDB)
             .observeOn(Schedulers.newThread())
             .subscribeOn(Schedulers.newThread())
-            .subscribe({result ->
+            .subscribe { result ->
                 run {
-                    codeChalangeDatabase.ResultDao().insert(result)
+                    codeChalangeDatabase.resultDao().insert(result)
                 }
-            })
+            }
     }
 
 }

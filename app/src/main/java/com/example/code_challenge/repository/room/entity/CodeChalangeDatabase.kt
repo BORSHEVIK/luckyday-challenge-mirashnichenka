@@ -13,7 +13,7 @@ abstract class CodeChalangeDatabase : RoomDatabase() {
 
     companion object {
         const val VERSION = 1
-        const val DATABASE_NAME = "CodeChalange.db"
+        private const val DATABASE_NAME = "CodeChalange.db"
 
         private var INSTANCE: CodeChalangeDatabase? = null
 
@@ -33,7 +33,7 @@ abstract class CodeChalangeDatabase : RoomDatabase() {
         }
     }
 
-    abstract fun ResultDao(): ResultDao
+    abstract fun resultDao(): ResultDao
 
 
 }

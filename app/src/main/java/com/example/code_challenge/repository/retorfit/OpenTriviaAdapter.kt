@@ -2,7 +2,6 @@ package com.example.code_challenge.repository.retorfit
 
 import com.example.code_challenge.repository.retorfit.model.GetQuestionsResponse
 import io.reactivex.Single
-import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Query
 
